@@ -3,14 +3,17 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Le Viet Toan, Linkedin">
+    <meta name="description" content="CV Project like LinkedIn">
     <title>Le Viet Toan | LinkedIn</title>
+    <link rel="shortcut icon" href="favicon.ico"/>
     <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css"/>
     <link rel="stylesheet" href="css/bootstrap-social.css" type="text/css"/>
     <link rel="stylesheet" href="css/common.css" type="text/css"/>
 </head>
-<body class="container-fluid">
+<body class="container-fluid" ng-app="my_app" ng-controller="my_controller">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -33,40 +36,36 @@
             </div>
         </div>
     </nav>
-    <main ng-app="my_app" ng-controller="my_controller" class="row">
-        <img class="img-responsive center-block" src="images/wall.jpg"/>
+    <main class="row">
+        <img class="img-responsive center-block" src="{{database.wall}}"/>
         <section id="top-card" class="container">
             <div class="col-md-10 col-md-push-1 card">
                 <div class="col-md-4">
-                    <img  src="images/avatar.png" class="img-responsive center-block"/>
+                    <img  src="{{database.avatar}}" class="img-responsive center-block"/>
                 </div>
                 <div class="col-md-8">
-                    <h1 class="name text-center">Le Viet Toan</h1>
-                    <p class="headline">Junior at University Of Science (Viet Nam)</p>
-                    <p class="country_job">Viet Nam | Software Internship</p>
+                    <h1 class="name text-center" ng-bind="database.name"></h1>
+                    <p class="headline" ng-bind="database.headline"></p>
+                    <p class="country_job">{{database.country}} | {{database.job}}</p>
                     <table class="overview">
                         <tbody>
-                            <tr>
-                                <th>Address</th>
-                                <td>Tan Binh District, Ho Chi Minh City</td>
-                            </tr>
-                            <tr>
-                                <th>Education</th>
-                                <td>University Of Science, Viet Nam</td>
+                            <tr ng-repeat="data in database.overview" ng-if="data">
+                                <th ng-bind="data.title"></th>
+                                <td ng-bind="data.content"></td>
                             </tr>
                         </tbody>
                     </table>
                     <p class="contact_info">
-                        <a class="btn btn-social-icon btn-facebook">
+                        <a class="btn btn-social-icon btn-facebook" href="{{database.contact_info.facebook}}">
                             <span class="fa fa-facebook"></span>
                         </a>
-                        <a class="btn btn-social-icon btn-twitter">
+                        <a class="btn btn-social-icon btn-twitter" href="{{database.contact_info.twitter}}">
                             <span class="fa fa-twitter"></span>
                         </a>
-                        <a class="btn btn-social-icon btn-google">
+                        <a class="btn btn-social-icon btn-google" href="{{database.contact_info.google}}">
                             <span class="fa fa-google-plus"></span>
                         </a>
-                        <a class="btn btn-social-icon btn-linkedin">
+                        <a class="btn btn-social-icon btn-linkedin" href="{{database.contact_info.linkedin}}">
                             <span class="fa fa-linkedin"></span>
                         </a>
                     </p>
@@ -74,148 +73,114 @@
             </div>
         </section>
         <section id="panel" class="container">
-            <div class="col-md-10 col-md-push-1 card">
+            <div class="col-md-10 col-md-push-1 card" ng-repeat="panel in database.panels" ng-if="panel">
                 <div class="row">
-                    <h2 class="panel_name col-md-2">Background</h2>
+                    <h2 class="panel_name col-md-2" ng-bind="panel.panel_name"></h2>
                 </div>
-                <div class="row panel_content">
-                    <div class="col-md-12">
-                        <h3 class="post_name">
-                            <span>
-                              <i class="fa fa-file-text-o fa-6"></i>
-                            </span>
-                            <span class="post_name_content">Summary</span>
-                        </h3>
-                    </div>
-                    <div class="col-md-12">
-                        <p>
-                            Internet executive with over 20 years of experience, including general management of mid to large size organizations, corporate development, product development, business operations, and strategy.
-                            <br>
-                            Currently CEO at LinkedIn, the web's largest and most powerful network of professionals.
-                            <br>
-                            Prior to LinkedIn, was an Executive in Residence at Accel Partners and Greylock Partners. Primarily focused on advising the leadership teams of the firm's existing consumer technology portfolio companies while also working closely with the firm’s partners to evaluate new investment opportunities.
-                            <br>
-                            Previously served in key leadership roles at Yahoo! for over seven years, most recently as the Executive Vice President of Yahoo!'s Network Division managing Yahoo's consumer web product portfolio, including Yahoo's Front Page, Mail, Search, and Media products.
-                            <br>
-                            Specialties: general management, corporate development, product development, business operations, strategy, product marketing, non-profit governance
-                        </p>
-                    </div>
-                </div>
-                <hr/>
-                <div class="row panel_content">
-                    <div class="col-md-12">
-                        <h3 class="post_name">
-                            <span>
-                              <i class="fa fa-lightbulb-o fa-6"></i>
-                            </span>
-                            <span class="post_name_content">Experience</span>
-                        </h3>
-                    </div>
-                    <div class="row col-md-12">
-                        <div class="col-md-10">
-                            <h4>CEO</h4>
-                            <p>LinkedIn</p>
-                            <p>December 2008 – Present</p>
+                <div ng-repeat="post in panel.panel_content">
+                    <div class="row panel_content">
+                        <div class="col-md-12">
+                            <h3 class="post_name">
+                                <span ng-if="post.post_name == 'Summary'">
+                                  <i class="fa fa-file-text-o fa-6"></i>
+                                </span>
+                                <span ng-if="post.post_name == 'Experience'">
+                                  <i class="fa fa-lightbulb-o fa-6"></i>
+                                </span>
+                                <span ng-if="post.post_name == 'Projects'">
+                                  <i class="fa fa-pencil-square-o fa-6"></i>
+                                </span>
+                                <span ng-if="post.post_name == 'Skills'">
+                                  <i class="fa fa-rocket fa-6"></i>
+                                </span>
+                                <span ng-if="post.post_name == 'Education'">
+                                  <i class="fa fa-graduation-cap fa-6"></i>
+                                </span>
+                                <span class="post_name_content" ng-bind="post.post_name"></span>
+                            </h3>
                         </div>
-                        <div class="col-md-2">
-                            <img class="img-responsive" src="images/img_company.png" alt="Logo"/>
+                        <div class="col-md-12" ng-if="post.post_name == 'Summary'">
+                            <p><i>"{{post.post_content.slogan_content}}"</i></p>
+                            <p ng-bind-html="post.post_content.summary_content"></p>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <p>
-                            Connecting the world's professionals to make them more productive and successful. Since joining the company in December 2008, LinkedIn has expanded its global platform to 23 languages and more than 30 offices around the world, grown its membership base from 33M to more than 347M, and increased its revenue from $78M to over $2.2B in 2014.
-                        </p>
-                    </div>
-                </div>
-                <hr/>
-                <div class="row panel_content">
-                    <div class="col-md-12">
-                        <h3 class="post_name">
-                            <span>
-                              <i class="fa fa-pencil-square-o fa-6"></i>
-                            </span>
-                            <span class="post_name_content">Projects</span>
-                        </h3>
-                    </div>
-                    <div class="row col-md-12">
-                        <div class="col-md-10">
-                            <h4>Project Name</h4>
-                            <p>Link GitHub: <a></a></p>
-                            <p>December 2008 – Present</p>
-                        </div>
-                        <div class="col-md-2">
-                            <img class="img-responsive" src="images/img_company.png" alt="Logo"/>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <p>
-                            Connecting the world's professionals to make them more productive and successful. Since joining the company in December 2008, LinkedIn has expanded its global platform to 23 languages and more than 30 offices around the world, grown its membership base from 33M to more than 347M, and increased its revenue from $78M to over $2.2B in 2014.
-                        </p>
-                    </div>
-                </div>
-                <hr/>
-                <div class="row panel_content">
-                    <div class="col-md-12">
-                        <h3 class="post_name">
-                            <span>
-                              <i class="fa fa-rocket fa-6"></i>
-                            </span>
-                            <span class="post_name_content">Skills</span>
-                        </h3>
-                    </div>
-                    <div class="row col-md-12">
-                        <div class="col-md-2">
-                            <button class="btn btn-info" type="button">
-                                C++ <span class="badge">20%</span>
-                            </button>
-                        </div>
-                        <div class="col-md-10">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"></div>
+                        <div ng-if="post.post_name == 'Experience'" ng-repeat="content in post.post_content">
+                            <div class="row col-md-12">
+                                <div class="col-md-10">
+                                    <h4><b>{{content.position}}</b></h4>
+                                    <p ng-bind="content.company_name"></p>
+                                    <p ng-bind="content.working_time"></p>
+                                </div>
+                                <div class="col-md-2">
+                                    <img class="img-responsive" src="{{content.company_icon}}" alt="Logo"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p ng-bind="content.description"></p>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-warning" type="button">
-                                C++ <span class="badge">20%</span>
-                            </button>
+                        <div ng-if="post.post_name == 'Projects'" ng-repeat="content in post.post_content">
+                            <div class="row col-md-12">
+                                <div class="col-md-10">
+                                    <h4><b>{{content.project_name}}</b></h4>
+                                    <p>Link GitHub: <a href="{{content.link_github}}">{{content.link_github}}</a></p>
+                                    <p ng-bind="content.working_time"></p>
+                                </div>
+                                <div class="col-md-2">
+                                    <img ng-if="content.language == 'C++'" class="img-responsive" src="images/icon_c_plus_plus.png" alt="Logo"/>
+                                    <img ng-if="content.language == 'C#'" class="img-responsive" src="images/icon_c_sharp.png" alt="Logo"/>
+                                    <img ng-if="content.language == 'PHP'" class="img-responsive" src="images/icon_php.png" alt="Logo"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p ng-bind="content.description"></p>
+                            </div>
                         </div>
-                        <div class="col-md-10">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"></div>
+                        <div ng-if="post.post_name == 'Skills'" ng-repeat="content in post.post_content">
+                            <div class="row col-md-12">
+                                <div class="col-md-4">
+                                    <button ng-if="$index % 2 == 0" class="btn btn-info" type="button">
+                                        {{content.skill_name}} <span class="badge">{{content.level}}%</span>
+                                    </button>
+                                    <button ng-if="$index % 2 != 0" class="btn btn-warning" type="button">
+                                        {{content.skill_name}} <span class="badge">{{content.level}}%</span>
+                                    </button>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="progress">
+                                        <div ng-if="$index % 2 == 0" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{content.level}}" aria-valuemin="0" aria-valuemax="100" style="width: {{content.level}}%"></div>
+                                        <div ng-if="$index % 2 != 0" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="{{content.level}}" aria-valuemin="0" aria-valuemax="100" style="width: {{content.level}}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="post.post_name == 'Education'" ng-repeat="content in post.post_content">
+                            <div class="row col-md-12">
+                                <div class="col-md-10">
+                                    <h4><b>{{content.school_name}}</b></h4>
+                                    <p ng-bind="content.certificates"></p>
+                                    <p ng-bind="content.studying_time"></p>
+                                </div>
+                                <div class="col-md-2">
+                                    <img class="img-responsive" src="{{content.school_icon}}" alt="Logo"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p ng-bind="content.school_address"></p>
                             </div>
                         </div>
                     </div>
-                </div>
-                <hr/>
-                <div class="row panel_content">
-                    <div class="col-md-12">
-                        <h3 class="post_name">
-                            <span>
-                              <i class="fa fa-graduation-cap fa-6"></i>
-                            </span>
-                            <span class="post_name_content">Education</span>
-                        </h3>
-                    </div>
-                    <div class="row col-md-12">
-                        <div class="col-md-10">
-                            <h4>School Name</h4>
-                            <p>certificates</p>
-                            <p>December 2008 – Present</p>
-                        </div>
-                        <div class="col-md-2">
-                            <img class="img-responsive" src="images/img_company.png" alt="Logo"/>
-                        </div>
-                    </div>
+                    <hr/>
                 </div>
             </div>
         </section>
     </main>
     <footer class="row text-center">
-        <span>Copyright &copy; 2016 - Le Viet Toan - All rights reserved.</span>
+        <span>Copyright &copy; 2016 - {{database.name}} - All rights reserved.</span>
     </footer>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angularjs-sanitize.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
