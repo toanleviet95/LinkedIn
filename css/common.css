@@ -12,11 +12,75 @@ body{
 main{
     margin-top: 50px;
 }
-div#top-card{
+section#top-card{
     position: relative;
     margin-top: -15%;
 }
-.top-card{
+.card{
     background-image: linear-gradient(rgba(255,255,255,0.85),#ffffff 65%,#ffffff);
     background-color: transparent;
 }
+h1.name{
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 24px;
+}
+p.headline{
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 22px;
+    color: #666;
+}
+table.overview{
+    margin: 10px 0 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+table.overview tr th{
+    color: #66696a;
+    padding: 2px 20px 0 0;
+    white-space: nowrap;
+}
+table.overview tr td{
+    padding: 2px 0 0 0;
+}
+p.contact_info{
+    padding-top: 20px;
+}
+#panel{
+    margin-top: 20px;
+}
+h2.panel_name{
+    font-size: 13px;
+    line-height: 17px;
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    float: left;
+    margin-top: 0
+}
+.panel_content{
+    padding-left: 3%;
+    padding-right: 3%;
+}
+.post_name{
+    font-size: 50px;
+}
+.post_name_content{
+    font-size: 30px;
+    vertical-align: middle;
+}
+.progress{
+    margin-top: 7px;
+}
+footer{
+    background-color: #333;
+    color: #ffffff;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px;
+}
+

@@ -1,0 +1,82 @@
+{
+  "name": "Le Viet Toan",
+  "headline": "Junior at University Of Science (Viet Nam)",
+  "job": "Software Internship",
+  "country": "Viet Nam",
+  "overview":[
+    {
+      "title": "Address",
+      "content": "Tan Binh District, Ho Chi Minh City"
+    },
+    {
+      "title": "Education",
+      "content": "University Of Science, Viet Nam"
+    }
+  ],
+  "contact_info": {
+    "facebook": "",
+    "twitter": "",
+    "google+": "",
+    "linkedin": ""
+  },
+  "link_LinkedIn": "",
+  "panels":[
+    {
+      "panel_name": "Background",
+      "panel_content": [
+        {
+          "post_name": "Summary",
+          "post_content": {
+            "summary_content": ""
+          }
+        },
+        {
+          "post_name": "Experience",
+          "post_content": [
+            {
+              "position": "",
+              "company_name": "",
+              "company_icon": "",
+              "working_time": "",
+              "description": "",
+              "images": ["","","",""]
+            }
+          ]
+        },
+        {
+          "post_name": "Projects",
+          "post_content": [
+            {
+              "project_name": "",
+              "working_time": "",
+              "description": "",
+              "link_github": "",
+              "images": ["",""]
+            }
+          ]
+        },
+        {
+          "post_name": "Skills",
+          "post_content": [
+            {
+              "skill_name": "",
+              "level": "",
+              "image": ""
+            }
+          ]
+        },
+        {
+          "post_name": "Education",
+          "post_content": [
+            {
+              "school_name": "",
+              "certificates": ["",""],
+              "studying_time": "",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
