@@ -1,0 +1,22 @@
+body{
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: normal;
+    color: #333;
+    background: url("../images/bg.png");
+}
+.logo-btn{
+    padding: 8px;
+}
+main{
+    margin-top: 50px;
+}
+div#top-card{
+    position: relative;
+    margin-top: -15%;
+}
+.top-card{
+    background-image: linear-gradient(rgba(255,255,255,0.85),#ffffff 65%,#ffffff);
+    background-color: transparent;
+}
