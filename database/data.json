@@ -1,4 +1,6 @@
 {
+  "username": "admin",
+  "password": "123456",
   "name": "Le Viet Toan",
   "headline": "Junior at University Of Science (Viet Nam)",
   "job": "Software Internship",
@@ -9,6 +11,10 @@
     {
       "title": "Address",
       "content": "Tan Binh District, Ho Chi Minh City"
+    },
+    {
+      "title": "Tel",
+      "content": "09 38 239 554"
     },
     {
       "title": "Education",
@@ -28,18 +34,20 @@
         {
           "post_name": "Summary",
           "post_content": {
-            "slogan_content": "I am a Junior studying Software Technology in falculty of IT with the knowledge gained in University Of Science and half year internship",
-            "summary_content": "<b>* Farovite subjects</b>: Web Development, Mobile Application DevelopmentWindows Programming, Object Oriented Programming, SoftwareTechnology, Database Management System<br/><b>* Achivements:</b><br/>- PHP & MySQL Certifcation (T3H)<br/>- Zend 2 Framework Certification (T3H)<br/>- CodeIgniter Framework Certification (T3H)<br/>- TOEIC Trial Test 635 Certification (AMA)"
+            "summary_content": "<i>\"I am a Junior studying Software Technology in falculty of IT with the knowledge gained in University Of Science and half year internship\"</i><br/><b>* Farovite subjects</b>: Web Development, Mobile Application DevelopmentWindows Programming, Object Oriented Programming, SoftwareTechnology, Database Management System<br/><b>* Achivements:</b><br/>- PHP & MySQL Certifcation (T3H)<br/>- Zend 2 Framework Certification (T3H)<br/>- CodeIgniter Framework Certification (T3H)<br/>- TOEIC Trial Test 635 Certification (AMA)"
           }
         },
         {
           "post_name": "Experience",
           "post_content": [
             {
-              "position": "Web Develoment Internship",
+              "position": "Web Development Internship",
               "company_name": "UREKA MEDIA",
               "company_icon": "images/icon_company.png",
-              "working_time": "June 2015 - Aug 2015",
+              "working_time": {
+                "from":"Jun 2015",
+                "to":"Aug 2015"
+              },
               "description": "Ureka Media is a digital media platforms provider. We specialized in data-driven display advertising and content viral marketing solution to both advertisers and publishers in need. Our core value is to continuously discover the most effective digital media solution to our business partners."
             }
           ]
@@ -65,7 +73,7 @@
               "project_name": "ITTECH",
               "working_time": "Jan 2015",
               "description": "Online Selling Website",
-              "link_github": "#None",
+              "link_github": "#URL",
               "language": "PHP"
             },
             {
@@ -96,47 +104,47 @@
           "post_content": [
             {
               "skill_name": "Team Work",
-              "level": "100"
+              "level": 100
             },
             {
               "skill_name": "Strategy",
-              "level": "70"
+              "level": 70
             },
             {
               "skill_name": "Social Media",
-              "level": "80"
+              "level": 80
             },
             {
               "skill_name": "SQL Server/MySQL/XML",
-              "level": "80"
+              "level": 80
             },
             {
               "skill_name": "C/C++",
-              "level": "80"
+              "level": 80
             },
             {
               "skill_name": "WPF C#",
-              "level": "70"
+              "level": 70
             },
             {
               "skill_name": "ASP.NET MVC",
-              "level": "70"
+              "level": 70
             },
             {
               "skill_name": "Zend PHP",
-              "level": "80"
+              "level": 80
             },
             {
               "skill_name": "CodeIgniter PHP",
-              "level": "100"
+              "level": 100
             },
             {
               "skill_name": "JQuery/AJAX",
-              "level": "80"
+              "level": 80
             },
             {
               "skill_name": "Bootstrap CSS",
-              "level": "90"
+              "level": 90
             }
           ]
         },
@@ -146,14 +154,20 @@
             {
               "school_name": "Nguyen Thuong Hien High School",
               "certificates": "High School diploma, College degree",
-              "studying_time": "2010 - 2013",
+              "studying_time": {
+                "from": "Aug 2010",
+                "to": "Aug 2013"
+              },
               "school_icon": "images/icon_NTH.png",
               "school_address": "649 Hoang Van Thu Street, Ward 4, Tan Binh District, Ho Chi Minh City"
             },
             {
               "school_name": "University Of Science",
               "certificates": "Bachelor of IT",
-              "studying_time": "2013 - 2017",
+              "studying_time": {
+                "from": "Sep 2013",
+                "to": "Aug 2017"
+              },
               "school_icon": "images/icon_KHTN.png",
               "school_address": "227 Nguyen Van Cu Street, Ward 4,District 5, Ho Chi Minh City "
             }

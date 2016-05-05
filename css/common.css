@@ -67,7 +67,7 @@ h2.panel_name{
     padding-right: 3%;
 }
 .post_name{
-    font-size: 50px;
+    font-size: 40px;
 }
 .post_name_content{
     font-size: 30px;
@@ -76,6 +76,14 @@ h2.panel_name{
 .progress{
     margin-top: 7px;
 }
+.link_git{
+    font-size: 11px;
+}
+#login_error{
+    color: red;
+    display: none;
+    text-align: center;
+}
 footer{
     background-color: #333;
     color: #ffffff;
@@ -83,4 +91,46 @@ footer{
     margin-top: 20px;
     padding: 10px;
 }
+.editable-click{
+    border-bottom: none;
+    color: inherit;
+}
+.glyphicon-pencil{
+    font-size: inherit;
+}
+.font-icon{
+    font-size: 16px;
+    vertical-align: middle;
+}
+.edit-icon{
+    position: absolute;
+    right: 0;
+    top:0;
+    cursor: pointer;
+}
+.remove-icon{
+    position: absolute;
+    right: 0px;
+    top: 30px;
+    cursor: pointer;
+}
+.skill-edit-icon{
+    float: right;
+    cursor: pointer;
+}
+.skill-remove-icon{
+    float: right;
+    cursor: pointer;
+}
+.camera-icon{
+    position: absolute;
+    left: 0;
+}
+.post:hover{
+    background-color: honeydew;
+}
+.pointer{
+    cursor: pointer;
+}
+
 

@@ -1,0 +1,528 @@
+<button class="btn btn-sm btn-primary camera-icon" ngf-select ng-model="database.wall" ngf-accept="'image/*'"><span class="glyphicon glyphicon-camera"></span></button>
+<img class="img-responsive center-block" ngf-src="database.wall||'images/wall.jpg'"/>
+<section id="top-card" class="container">
+    <div class="col-md-10 col-md-push-1 card">
+        <div class="col-md-4">
+            <button class="btn btn-sm btn-primary camera-icon" ngf-select ng-model="database.avatar" ngf-accept="'image/*'"><span class="glyphicon glyphicon-camera"></span></button>
+            <img ngf-src="database.avatar||'images/avatar.png'" class="img-responsive center-block"/>
+        </div>
+        <div class="col-md-8">
+            <h1 class="name text-center pointer" e-required e-placeholder="Name..." editable-text="database.name" buttons="no" blur="submit">
+                {{database.name || 'Name'}}&nbsp;<span class='glyphicon glyphicon-pencil'></span>
+            </h1>
+            <p class="headline pointer" editable-text="database.headline" e-required e-placeholder="Headline..." buttons="no" blur="submit">
+                {{database.headline || 'Headline'}}&nbsp;<span class='glyphicon glyphicon-pencil'></span>
+            </p>
+            <form class="country_job" editable-form name="country_job_form">
+                <span e-required e-placeholder="Country..." editable-text="database.country">{{database.country || 'Country'}}</span> |
+                <span e-required e-placeholder="Job..." editable-text="database.job">{{database.job || 'Job'}}</span>
+                &nbsp;<span ng-click="country_job_form.$show()" ng-show="!country_job_form.$visible" class='glyphicon glyphicon-pencil pointer'></span>
+                <span ng-show="country_job_form.$visible">
+                    <button type="submit" class="btn btn-sm btn-primary" ng-disabled="country_job_form.$waiting">
+                        Save
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" ng-disabled="country_job_form.$waiting" ng-click="country_job_form.$cancel()">
+                        Cancel
+                    </button>
+                </span>
+            </form>
+            <table class="overview">
+                <tbody>
+                <tr ng-repeat="data in database.overview" ng-if="data">
+                    <th>{{data.title}}</th>
+                    <td class="pointer" ng-if="data.title == 'Tel'" e-pattern='/^[+]?[0-9]+$/' editable-tel="data.content" buttons="no" blur="submit">{{data.content || 'Empty'}}&nbsp;<span class='glyphicon glyphicon-pencil'></span></td>
+                    <td class="pointer" ng-if="data.title != 'Tel'" editable-text="data.content" buttons="no" blur="submit">{{data.content || 'Empty'}}&nbsp;<span class='glyphicon glyphicon-pencil'></span></td>
+                </tr>
+                </tbody>
+            </table>
+            <form editable-form name="contact_form" class="contact_info">
+                <a e-placeholder="Facebook URL..." editable-url="database.contact_info.facebook" class="btn btn-social-icon btn-facebook" href="{{database.contact_info.facebook || '#facebook'}}">
+                    <span class="fa fa-facebook"></span>
+                </a>
+                <a e-placeholder="Twitter URL..." editable-url="database.contact_info.twitter" class="btn btn-social-icon btn-twitter" href="{{database.contact_info.twitter || '#twitter'}}">
+                    <span class="fa fa-twitter"></span>
+                </a>
+                <a e-placeholder="Google+ URL..." editable-url="database.contact_info.google" class="btn btn-social-icon btn-google" href="{{database.contact_info.google || '#google_plus'}}">
+                    <span class="fa fa-google-plus"></span>
+                </a>
+                <a e-placeholder="LinkedIn URL..." editable-url="database.contact_info.linkedin" class="btn btn-social-icon btn-linkedin" href="{{database.contact_info.linkedin || '#linkedin'}}">
+                    <span class="fa fa-linkedin"></span>
+                </a>
+                <span ng-click="contact_form.$show()" ng-show="!contact_form.$visible" class='glyphicon glyphicon-pencil pointer'></span>
+                <span ng-show="contact_form.$visible">
+                    <button type="submit" class="btn btn-sm btn-primary" ng-disabled="contact_form.$waiting">
+                        Save
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" ng-disabled="contact_form.$waiting" ng-click="contact_form.$cancel()">
+                        Cancel
+                    </button>
+                </span>
+            </form>
+        </div>
+    </div>
+</section>
+<section id="panel" class="container">
+    <div class="col-md-10 col-md-push-1 card" ng-repeat="panel in database.panels" ng-if="panel">
+        <div class="row">
+            <h2 class="panel_name col-md-2" ng-bind="panel.panel_name"></h2>
+        </div>
+        <div ng-repeat="post in panel.panel_content">
+            <div class="row panel_content">
+                <div class="col-md-12">
+                    <h3 class="post_name">
+                        <span ng-if="post.post_name == 'Summary'">
+                            <i class="fa fa-file-text-o fa-6"></i>
+                        </span>
+                        <span ng-if="post.post_name == 'Experience'">
+                            <i class="fa fa-lightbulb-o fa-6"></i>
+                        </span>
+                        <span ng-if="post.post_name == 'Projects'">
+                            <i class="fa fa-pencil-square-o fa-6"></i>
+                        </span>
+                        <span ng-if="post.post_name == 'Skills'">
+                            <i class="fa fa-rocket fa-6"></i>
+                        </span>
+                        <span ng-if="post.post_name == 'Education'">
+                            <i class="fa fa-graduation-cap fa-6"></i>
+                        </span>
+                        <span class="post_name_content" ng-bind="post.post_name"></span>
+                        <span data-toggle="modal" href="#experience_modal" ng-click="init_experience()" ng-if="post.post_name == 'Experience'" class='glyphicon glyphicon-plus font-icon pointer'></span>
+                        <span data-toggle="modal" href="#project_modal" ng-click="init_project()" ng-if="post.post_name == 'Projects'" class='glyphicon glyphicon-plus font-icon pointer'></span>
+                        <span data-toggle="modal" href="#skill_modal" ng-click="init_skill()" ng-if="post.post_name == 'Skills'" class='glyphicon glyphicon-plus font-icon pointer'></span>
+                        <span data-toggle="modal" href="#education_modal" ng-click="init_education()" ng-if="post.post_name == 'Education'" class='glyphicon glyphicon-plus font-icon pointer'></span>
+                    </h3>
+                </div>
+                <div class="col-md-12 post pointer" ng-if="post.post_name == 'Summary'">
+                    <span class='glyphicon glyphicon-pencil font-icon edit-icon'></span>
+                    <p e-placeholder="Summary..." class="col-md-12" e-rows="10" e-cols="120" buttons="no" blur="submit" editable-textarea="post.post_content.summary_content" ng-bind-html="post.post_content.summary_content||'Empty'"></p>
+                </div>
+                <div ng-if="post.post_name == 'Experience'" ng-repeat="content in post.post_content">
+                    <form ng-if="content.position" editable-form name="experience_form" class="col-md-12 post">
+                        <span ng-click="remove_experience($index)" class='glyphicon glyphicon-remove font-icon remove-icon'></span>
+                        <span ng-click="experience_form.$show()" ng-show="!experience_form.$visible" class='glyphicon glyphicon-pencil font-icon edit-icon'></span>
+                        <div class="col-md-10">
+                            <h4 e-placeholder="Position..." editable-text="content.position"><b>{{content.position||'Position'}}</b></h4>
+                            <p e-placeholder="Company name..." editable-text="content.company_name" ng-bind="content.company_name||'Company name'"></p>
+                            <div class='input-group date datepicker col-sm-3'>
+                                <input  type='text' class="form-control" ng-model="content.working_time.from" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            <span>To</span>
+                            <div class='input-group date datepicker col-sm-3'>
+                                <input  type='text' class="form-control" ng-model="content.working_time.to" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('.datepicker').datetimepicker({
+                                        viewMode: 'years',
+                                        format: 'MMM YYYY',
+                                        widgetPositioning: {
+                                            horizontal: 'auto',
+                                            vertical: 'bottom'
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-sm btn-primary camera-icon" ngf-select ng-model="content.company_icon" ngf-accept="'image/*'"><span class="glyphicon glyphicon-camera"></span></button>
+                            <img ngf-src="content.company_icon" class="img-responsive" alt="Logo"/>
+                        </div>
+                        <p e-placeholder="Description..." e-rows="3" e-cols="120" class="col-md-12" editable-textarea="content.description" ng-bind="content.description||'Description'"></p>
+                        <div ng-show="experience_form.$visible">
+                            <button type="submit" class="btn btn-sm btn-primary" ng-disabled="experience_form.$waiting">
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" ng-disabled="experience_form.$waiting" ng-click="experience_form.$cancel()">
+                                Cancel
+                            </button>
+                         </div>
+                    </form>
+                </div>
+
+                <div id="experience_modal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title text-center"><i class="fa fa-lightbulb-o fa-6"></i>&nbsp;Experience</h4>
+                            </div>
+                            <div class="modal-body form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Position:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" ng-model="experience.position"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Company name:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" ng-model="experience.company_name"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Image:</label>
+                                    <div class="col-sm-9">
+                                        <input class="btn btn-sm" type="file" ngf-select ng-model="experience.company_icon" ngf-accept="'image/*'"/>
+                                    </div>
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <img class="img-thumbnail center-block" ngf-src="experience.company_icon"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Period of time:</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label col-sm-3">From:</label>
+                                        <div class='input-group date datepicker col-sm-6'>
+                                            <input  type='text' class="form-control" id="from_experience_add" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <label class="control-label col-sm-3">To:</label>
+                                        <div class='input-group date datepicker col-sm-6'>
+                                            <input  type='text' class="form-control" id="to_experience_add" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            $('.datepicker').datetimepicker({
+                                                viewMode: 'years',
+                                                format: 'MMM YYYY',
+                                                widgetPositioning: {
+                                                    horizontal: 'auto',
+                                                    vertical: 'bottom'
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Description:</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" ng-model="experience.description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-primary" ng-click="add_experience(experience)">Add</button>
+                                    <button class="btn btn-default" ng-click="delete_obj(experience)" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="post.post_name == 'Projects'" ng-repeat="content in post.post_content">
+                    <form ng-if="content.project_name" editable-form name="project_form" class="col-md-12 post">
+                        <span ng-click="remove_project($index)" class='glyphicon glyphicon-remove font-icon remove-icon'></span>
+                        <span ng-click="project_form.$show()" ng-show="!project_form,$visible" class='glyphicon glyphicon-pencil font-icon edit-icon'></span>
+                        <div class="col-md-10">
+                            <h4 e-placeholder="Project name..." editable-text="content.project_name"><b>{{content.project_name||'Project name'}}</b></h4>
+                            <p><a class="link_git" e-placeholder="Link Github..." editable-url="content.link_github" href="{{content.link_github}}" ng-bind="content.link_github||'#URL'"></a></p>
+                            <div class='input-group date datepicker col-sm-3'>
+                                <input  type='text' class="form-control" ng-model="content.working_time|date:'MMM YYYY'" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('.datepicker').datetimepicker({
+                                        viewMode: 'years',
+                                        format: 'MMM YYYY',
+                                        widgetPositioning: {
+                                            horizontal: 'auto',
+                                            vertical: 'bottom'
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div class="col-md-2" editable-ui-select="content.language" theme="bootstrap" data-e-ng-model="content.language" data-e-style="width:100px">
+                            <editable-ui-select-match placeholder="Language...">
+                                {{$select.selected}}
+                            </editable-ui-select-match>
+                            <editable-ui-select-choices repeat="language in languages | filter: $select.search track by $index">
+                                {{language}}
+                            </editable-ui-select-choices>
+                            <img ng-if="content.language == 'C++'" class="img-responsive" src="images/icon_c_plus_plus.png" alt="Logo"/>
+                            <img ng-if="content.language == 'C#'" class="img-responsive" src="images/icon_c_sharp.png" alt="Logo"/>
+                            <img ng-if="content.language == 'PHP'" class="img-responsive" src="images/icon_php.png" alt="Logo"/>
+                            <img ng-if="content.language == 'Java'" class="img-responsive" src="images/icon_java.png" alt="Logo"/>
+                            <img ng-if="content.language == 'Ruby'" class="img-responsive" src="images/icon_ruby.png" alt="Logo"/>
+                            <img ng-if="content.language == 'Javascript'" class="img-responsive" src="images/icon_javascipt.png" alt="Logo"/>
+                            <img ng-if="content.language == 'Python'" class="img-responsive" src="images/icon_python.png" alt="Logo"/>
+                        </div>
+                        <p e-placeholder="Description..." e-rows="3" e-cols="120" editable-textarea="content.description" class="col-md-12" ng-bind="content.description||'Description'"></p>
+                        <div ng-show="project_form.$visible">
+                            <button type="submit" class="btn btn-sm btn-primary" ng-disabled="project_form.$waiting">
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" ng-disabled="project_form.$waiting" ng-click="project_form.$cancel()">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="project_modal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title text-center"><i class="fa fa-pencil-square-o fa-6"></i>&nbsp;Project</h4>
+                            </div>
+                            <div class="modal-body form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Project name:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" ng-model="project.project_name"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Link Github:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="url" ng-model="project.link_github"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Language:</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" ng-model="project.language">
+                                            <option value="C++">C++</option>
+                                            <option value="C#">C#</option>
+                                            <option value="Java">Java</option>
+                                            <option value="PHP">PHP</option>
+                                            <option value="Python">Python</option>
+                                            <option value="Ruby">Ruby</option>
+                                            <option value="Javascript">Javascript</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Time:</label>
+                                    <div class="input-group date datepicker col-sm-offset-5 col-sm-4">
+                                        <input  type='text' class="form-control" id="time_project_add" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Description:</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" ng-model="project.description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-primary" ng-click="add_project(project)">Add</button>
+                                    <button class="btn btn-default" ng-click="delete_obj(project)" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="post.post_name == 'Skills'" ng-repeat="content in post.post_content">
+                    <div ng-if="content.skill_name" class="col-md-12 post">
+                        <div class="col-md-5">
+                            <span ng-click="remove_skill($index)" class='glyphicon glyphicon-remove font-icon skill-remove-icon'></span>
+                            <button ng-if="$index % 2 == 0" class="btn btn-info" type="button">
+                                <span e-placeholder="Skill..." e-style="width:80px" editable-text="content.skill_name" buttons="no" blur="submit" ng-bind="content.skill_name||'Skill'"></span>
+                                <span e-placeholder="Level..." e-style="width:80px" editable-number="content.level" buttons="no" blur="submit" class="badge">{{content.level||50}}%</span>
+                            </button>
+                            <button ng-if="$index % 2 != 0" class="btn btn-warning" type="button">
+                                <span e-placeholder="Skill..." e-style="width:80px" editable-text="content.skill_name" buttons="no" blur="submit" ng-bind="content.skill_name||'Skill'"></span>
+                                <span e-placeholder="Level..." e-style="width:80px" editable-number="content.level" buttons="no" blur="submit" class="badge">{{content.level||50}}%</span>
+                            </button>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="progress">
+                                <div ng-if="$index % 2 == 0" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{content.level}}" aria-valuemin="0" aria-valuemax="100" style="width: {{content.level}}%"></div>
+                                <div ng-if="$index % 2 != 0" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="{{content.level}}" aria-valuemin="0" aria-valuemax="100" style="width: {{content.level}}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="skill_modal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title text-center"><i class="fa fa-rocket fa-6"></i>&nbsp;Skill</h4>
+                            </div>
+                            <div class="modal-body form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Skill name:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" ng-model="skill.skill_name"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Level:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="number" ng-model="skill.level"/>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-primary" ng-click="add_skill(skill)">Add</button>
+                                    <button class="btn btn-default" ng-click="delete_obj(skill)" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="post.post_name == 'Education'" ng-repeat="content in post.post_content">
+                    <form ng-if="content.school_name" editable-form name="education_form" class="col-md-12 post">
+                        <span ng-click="remove_school($index)" class='glyphicon glyphicon-remove font-icon remove-icon'></span>
+                        <span ng-click="education_form.$show()" ng-show="!education_form,$visible" class='glyphicon glyphicon-pencil font-icon edit-icon'></span>
+                        <div class="col-md-10">
+                            <h4 e-placeholder="School name..." editable-text="content.school_name"><b>{{content.school_name||'School name'}}</b></h4>
+                            <p e-placeholder="Certificates..." editable-text="content.certificates" ng-bind="content.certificates||'Certificates'"></p>
+                            <div class='input-group date datepicker col-sm-3'>
+                                <input  type='text' class="form-control" ng-model="content.studying_time.from|date:'MMM YYYY'" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            <span>To</span>
+                            <div class='input-group date datepicker col-sm-3'>
+                                <input  type='text' class="form-control" ng-model="content.studying_time.to|date:'MMM YYYY'" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('.datepicker').datetimepicker({
+                                        viewMode: 'years',
+                                        format: 'MMM YYYY',
+                                        widgetPositioning: {
+                                            horizontal: 'auto',
+                                            vertical: 'bottom'
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-sm btn-primary camera-icon" ngf-select ng-model="content.school_icon" ngf-accept="'image/*'"><span class="glyphicon glyphicon-camera"></span></button>
+                            <img ngf-src="content.school_icon" class="img-responsive" alt="Logo"/>
+                        </div>
+                        <p e-placeholder="Address..." e-rows="3" e-cols="120" editable-textarea="content.school_address" class="col-md-12" ng-bind="content.school_address||'Address'"></p>
+                        <div ng-show="education_form.$visible">
+                            <button type="submit" class="btn btn-sm btn-primary" ng-disabled="education_form.$waiting">
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-sm btn-default" ng-disabled="education_form.$waiting" ng-click="education_form.$cancel()">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="education_modal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title text-center"><i class="fa fa-graduation-cap fa-6"></i>&nbsp;Education</h4>
+                            </div>
+                            <div class="modal-body form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">School name:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" ng-model="education.school_name"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Certificates:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" ng-model="education.certificates"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Image:</label>
+                                    <div class="col-sm-9">
+                                        <input class="btn btn-sm" type="file" ngf-select ng-model="education.school_icon" ngf-accept="'image/*'"/>
+                                    </div>
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <img class="img-thumbnail center-block" ngf-src="education.school_icon"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Period of time:</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label col-sm-3">From:</label>
+                                        <div class='input-group date datepicker col-sm-6'>
+                                            <input  type='text' class="form-control" id="from_education_add" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <label class="control-label col-sm-3">To:</label>
+                                        <div class='input-group date datepicker col-sm-6'>
+                                            <input  type='text' class="form-control" id="to_education_add" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            $('.datepicker').datetimepicker({
+                                                viewMode: 'years',
+                                                format: 'MMM YYYY',
+                                                widgetPositioning: {
+                                                    horizontal: 'auto',
+                                                    vertical: 'bottom'
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Address:</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" ng-model="education.school_address"></textarea>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-primary" ng-click="add_education(education)">Add</button>
+                                    <button class="btn btn-default" ng-click="delete_obj(education)" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+    </div>
+</section>
