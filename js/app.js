@@ -293,7 +293,7 @@ app.controller("my_controller", function($scope, $http, Upload){
     };
 
     $scope.remove_experience = function(index){
-        if($scope.database.panels[0].panel_content[1].post_content.length != 1) {
+        if(index != 0) {
             delete $scope.database.panels[0].panel_content[1].post_content[index]['position'];
             delete $scope.database.panels[0].panel_content[1].post_content[index]['company_name'];
             delete $scope.database.panels[0].panel_content[1].post_content[index]['company_icon'];
@@ -321,7 +321,7 @@ app.controller("my_controller", function($scope, $http, Upload){
     };
 
     $scope.remove_project = function(index){
-        if($scope.database.panels[0].panel_content[2].post_content.length != 1) {
+        if(index != 0) {
             delete $scope.database.panels[0].panel_content[2].post_content[index]['project_name'];
             delete $scope.database.panels[0].panel_content[2].post_content[index]['working_time'];
             delete $scope.database.panels[0].panel_content[2].post_content[index]['description'];
@@ -345,7 +345,7 @@ app.controller("my_controller", function($scope, $http, Upload){
     }
 
     $scope.remove_skill = function(index){
-        if($scope.database.panels[0].panel_content[3].post_content.length != 1) {
+        if(index != 0) {
             delete $scope.database.panels[0].panel_content[3].post_content[index]['skill_name'];
             delete $scope.database.panels[0].panel_content[3].post_content[index]['level'];
         }
@@ -374,7 +374,7 @@ app.controller("my_controller", function($scope, $http, Upload){
     };
 
     $scope.remove_school = function(index){
-        if($scope.database.panels[0].panel_content[4].post_content.length != 1) {
+        if(index != 0) {
             delete $scope.database.panels[0].panel_content[4].post_content[index]['school_name'];
             delete $scope.database.panels[0].panel_content[4].post_content[index]['certificates'];
             delete $scope.database.panels[0].panel_content[4].post_content[index]['studying_time'];
