@@ -41,16 +41,24 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li id="login"><a data-toggle="modal" href="#login_modal"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;Login</a></li>
                     <li id="account_name"><a><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{account_name}}</a></li>
-                    <li id="logout"><a href="" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Logout</a></li>
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <input type="text" id="" class="form-control"
+                <form id="nav_search" class="navbar-form navbar-right" role="search">
+                    <input type="text" class="form-control"
                            placeholder="Search...">
                     <button class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
                 </form>
+                <form id="nav_update" class="navbar-form navbar-right" role="search">
+                    <button class="btn-sm btn-primary" ng-click="save_update()">Save and Logout</button>
+                    <button class="btn-sm btn-primary" ng-click="reset_information()">Reset your information</button>
+                </form>
             </div>
         </div>
+        <div class="alert alert-info alert-dismissible text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            Your information is <strong>reset !</strong>
+        </div>
     </nav>
+
     <div id="login_modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -76,7 +84,10 @@
             </div>
         </div>
     </div>
-    <main class="row" ng-include="'modules/module_edit.html'"></main>
+
+    <main class="row" ng-if="is_login == false" ng-include="'modules/module_view.html'"></main>
+    <main class="row" ng-if="is_login == true" ng-include="'modules/module_edit.html'"></main>
+
     <footer class="row text-center">
         <span>Copyright &copy; 2016 - {{database.name}} - All rights reserved.</span>
     </footer>

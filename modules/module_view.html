@@ -1,13 +1,13 @@
-<img class="img-responsive center-block" src="{{database.wall}}"/>
+<img class="img-responsive center-block" src="{{database.wall||'images/wall.jpg'}}"/>
 <section id="top-card" class="container">
     <div class="col-md-10 col-md-push-1 card">
         <div class="col-md-4">
-            <img  src="{{database.avatar}}" class="img-responsive center-block"/>
+            <img  src="{{database.avatar||'images/avatar.png'}}" class="img-responsive center-block"/>
         </div>
         <div class="col-md-8">
-            <h1 class="name text-center">{{database.name}}</h1>
-            <p class="headline">{{database.headline}}</p>
-            <p class="country_job">{{database.country}} | {{database.job}}</p>
+            <h1 class="name text-center" ng-bind="database.name"></h1>
+            <p class="headline" ng-bind="database.headline"></p>
+            <p class="country_job">{{database.country || 'Country'}} | {{database.job || 'Job'}}</p>
             <table class="overview">
                 <tbody>
                 <tr ng-repeat="data in database.overview" ng-if="data">
@@ -17,16 +17,16 @@
                 </tbody>
             </table>
             <p class="contact_info">
-                <a class="btn btn-social-icon btn-facebook" href="{{database.contact_info.facebook}}">
+                <a class="btn btn-social-icon btn-facebook" href="{{database.contact_info.facebook || '#facebook'}}">
                     <span class="fa fa-facebook"></span>
                 </a>
-                <a class="btn btn-social-icon btn-twitter" href="{{database.contact_info.twitter}}">
+                <a class="btn btn-social-icon btn-twitter" href="{{database.contact_info.twitter || '#twitter'}}">
                     <span class="fa fa-twitter"></span>
                 </a>
-                <a class="btn btn-social-icon btn-google" href="{{database.contact_info.google}}">
+                <a class="btn btn-social-icon btn-google" href="{{database.contact_info.google || '#google_plus'}}">
                     <span class="fa fa-google-plus"></span>
                 </a>
-                <a class="btn btn-social-icon btn-linkedin" href="{{database.contact_info.linkedin}}">
+                <a class="btn btn-social-icon btn-linkedin" href="{{database.contact_info.linkedin || 'linkedin'}}">
                     <span class="fa fa-linkedin"></span>
                 </a>
             </p>
@@ -61,71 +61,75 @@
                     </h3>
                 </div>
                 <div class="col-md-12" ng-if="post.post_name == 'Summary'">
-                    <p ng-bind-html="post.post_content.summary_content"></p>
+                    <p ng-bind-html="post.post_content.summary_content||'Empty'"></p>
                 </div>
                 <div ng-if="post.post_name == 'Experience'" ng-repeat="content in post.post_content">
-                    <div class="row col-md-12">
+                    <div ng-if="content.position" class="row col-md-12">
                         <div class="col-md-10">
-                            <h4><b>{{content.position}}</b></h4>
-                            <p ng-bind="content.company_name"></p>
-                            <p ng-bind="content.working_time"></p>
+                            <h4><b>{{content.position||'Position'}}</b></h4>
+                            <p ng-bind="content.company_name||'Company name"></p>
+                            <p><span ng-bind="content.working_time.from||'From'"></span>-<span ng-bind="content.working_time.to||'To'"></span></p>
                         </div>
                         <div class="col-md-2">
                             <img class="img-responsive" src="{{content.company_icon}}" alt="Logo"/>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <p ng-bind="content.description"></p>
+                        <p ng-bind="content.description||'Description'"></p>
                     </div>
                 </div>
                 <div ng-if="post.post_name == 'Projects'" ng-repeat="content in post.post_content">
-                    <div class="row col-md-12">
+                    <div ng-if="content.project_name" class="row col-md-12">
                         <div class="col-md-10">
-                            <h4><b>{{content.project_name}}</b></h4>
-                            <p>Link GitHub: <a class="link_git" href="{{content.link_github}}">{{content.link_github}}</a></p>
-                            <p ng-bind="content.working_time"></p>
+                            <h4><b>{{content.project_name || 'Project name'}}</b></h4>
+                            <p><a class="link_git" href="{{content.link_github||'#URL'}}">{{content.link_github||'#URL'}}</a></p>
+                            <p ng-bind="content.working_time||'Time'"></p>
                         </div>
                         <div class="col-md-2">
                             <img ng-if="content.language == 'C++'" class="img-responsive" src="images/icon_c_plus_plus.png" alt="Logo"/>
                             <img ng-if="content.language == 'C#'" class="img-responsive" src="images/icon_c_sharp.png" alt="Logo"/>
                             <img ng-if="content.language == 'PHP'" class="img-responsive" src="images/icon_php.png" alt="Logo"/>
+                            <img ng-if="content.language == 'Java'" class="img-responsive" src="images/icon_java.png" alt="Logo"/>
+                            <img ng-if="content.language == 'Ruby'" class="img-responsive" src="images/icon_ruby.png" alt="Logo"/>
+                            <img ng-if="content.language == 'Javascript'" class="img-responsive" src="images/icon_javascipt.png" alt="Logo"/>
+                            <img ng-if="content.language == 'Python'" class="img-responsive" src="images/icon_python.png" alt="Logo"/>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <p ng-bind="content.description"></p>
+                        <p ng-bind="content.description||'Description'"></p>
                     </div>
                 </div>
                 <div ng-if="post.post_name == 'Skills'" ng-repeat="content in post.post_content">
-                    <div class="row col-md-12">
+                    <div ng-if="content.skill_name" class="row col-md-12">
                         <div class="col-md-4">
                             <button ng-if="$index % 2 == 0" class="btn btn-info" type="button">
-                                {{content.skill_name}} <span class="badge">{{content.level}}%</span>
+                                {{content.skill_name||'Skill'}} <span class="badge">{{content.level||50}}%</span>
                             </button>
                             <button ng-if="$index % 2 != 0" class="btn btn-warning" type="button">
-                                {{content.skill_name}} <span class="badge">{{content.level}}%</span>
+                                {{content.skill_name||'Skill'}} <span class="badge">{{content.level||50}}%</span>
                             </button>
                         </div>
                         <div class="col-md-8">
                             <div class="progress">
-                                <div ng-if="$index % 2 == 0" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{content.level}}" aria-valuemin="0" aria-valuemax="100" style="width: {{content.level}}%"></div>
-                                <div ng-if="$index % 2 != 0" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="{{content.level}}" aria-valuemin="0" aria-valuemax="100" style="width: {{content.level}}%"></div>
+                                <div ng-if="$index % 2 == 0" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{content.level||50}}" aria-valuemin="0" aria-valuemax="100" style="width: {{content.level||50}}%"></div>
+                                <div ng-if="$index % 2 != 0" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="{{content.level||50}}" aria-valuemin="0" aria-valuemax="100" style="width: {{content.level||50}}%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div ng-if="post.post_name == 'Education'" ng-repeat="content in post.post_content">
-                    <div class="row col-md-12">
+                    <div ng-if="content.school_name" class="row col-md-12">
                         <div class="col-md-10">
-                            <h4><b>{{content.school_name}}</b></h4>
-                            <p ng-bind="content.certificates"></p>
-                            <p ng-bind="content.studying_time"></p>
+                            <h4><b>{{content.school_name||'School name'}}</b></h4>
+                            <p ng-bind="content.certificates||'Certificates'"></p>
+                            <p><span ng-bind="content.studying_time.from||'From'"></span>-<span ng-bind="content.studying_time.to||'To'"></span></p>
                         </div>
                         <div class="col-md-2">
                             <img class="img-responsive" src="{{content.school_icon}}" alt="Logo"/>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <p ng-bind="content.school_address"></p>
+                        <p ng-bind="content.school_address||'Address'"></p>
                     </div>
                 </div>
             </div>
