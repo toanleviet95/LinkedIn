@@ -30,7 +30,7 @@
                 <tbody>
                 <tr ng-repeat="data in database.overview" ng-if="data">
                     <th>{{data.title}}</th>
-                    <td class="pointer" ng-if="data.title == 'Tel'" e-pattern='/^[+]?[0-9]+$/' editable-tel="data.content" buttons="no" blur="submit">{{data.content || 'Empty'}}&nbsp;<span class='glyphicon glyphicon-pencil'></span></td>
+                    <td class="pointer" ng-if="data.title == 'Tel'" e-pattern="0\d{9,10}" editable-tel="data.content" buttons="no" blur="submit">{{data.content || 'Empty'}}&nbsp;<span class='glyphicon glyphicon-pencil'></span></td>
                     <td class="pointer" ng-if="data.title != 'Tel'" editable-text="data.content" buttons="no" blur="submit">{{data.content || 'Empty'}}&nbsp;<span class='glyphicon glyphicon-pencil'></span></td>
                 </tr>
                 </tbody>
