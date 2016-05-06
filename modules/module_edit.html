@@ -394,7 +394,7 @@
 
                 <div ng-if="post.post_name == 'Education'" ng-repeat="content in post.post_content">
                     <form ng-if="content.school_name" editable-form name="education_form" class="col-md-12 post">
-                        <span ng-click="remove_school($index)" class='glyphicon glyphicon-remove font-icon remove-icon'></span>
+                        <span ng-click="remove_education($index)" class='glyphicon glyphicon-remove font-icon remove-icon'></span>
                         <span ng-click="education_form.$show()" ng-show="!education_form,$visible" class='glyphicon glyphicon-pencil font-icon edit-icon'></span>
                         <div class="col-md-10">
                             <h4 e-placeholder="School name..." editable-text="content.school_name"><b>{{content.school_name||'School name'}}</b></h4>

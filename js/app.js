@@ -4,6 +4,7 @@ $(document).ready(function(){
     $('#login').click(function(){
         $('#login_error').hide();
     });
+    $('#logout').hide();
     $('#nav_search').show();
     $('#nav_update').hide();
 });
@@ -35,6 +36,7 @@ app.controller("my_controller", function($scope, $http, Upload){
             $scope.account_name = $scope.txtUsername;
             $('#login_modal').modal('hide');
             $('#login').hide();
+            $('#logout').show();
             $('#account_name').show();
             $('#nav_search').hide();
             $('#nav_update').show();
@@ -44,6 +46,16 @@ app.controller("my_controller", function($scope, $http, Upload){
             $('#login_error').show();
         }
     };
+
+    $scope.logout = function()
+    {
+        $scope.is_login = false;
+        $('#login').show();
+        $('#logout').hide();
+        $('#account_name').hide();
+        $('#nav_search').show();
+        $('#nav_update').hide();
+    }
 
     $scope.uploadPic = function(file,name) {
         file.upload = Upload.http({
@@ -373,7 +385,7 @@ app.controller("my_controller", function($scope, $http, Upload){
         $('#education_modal').modal('hide');
     };
 
-    $scope.remove_school = function(index){
+    $scope.remove_education = function(index){
         if(index != 0) {
             delete $scope.database.panels[0].panel_content[4].post_content[index]['school_name'];
             delete $scope.database.panels[0].panel_content[4].post_content[index]['certificates'];
